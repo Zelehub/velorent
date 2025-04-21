@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm">
+        <%= cl_image_tag @bike.photo.key, class: "card-img-top p-3 rounded" %>
+
+
+        <div class="card-body">
+          <h2 class="h5 font-weight-bold"><%= @bike.brand %> (<%= @bike.year %>)</h2>
+          <p class="text-muted"><strong>Type:</strong> <%= @bike.bike_type %></p>
+          <p class="text-muted"><strong>Color:</strong> <%= @bike.color %></p>
+          <p class="text-muted"><strong>Owner:</strong> <%= @bike.user.email %></p>
+
+        <div class="container d-flex">
+          <div class="row justify-content-center">
+            <%= simple_form_for [@bike, @order] do |f| %>
+              <div>
+
+                <div class="">
+                  <%= f.input :rental_date,
+                            as: :string,
+                            input_html: { data: { controller: "datepicker"}}
+                  %>
+
+                </div>
+              </div>
+
+              <div>
+
+                <div class="">
+                  <%= f.input :rental_date_end,
+                            as: :string,
+                            input_html: { data: { controller: "datepicker"}}
+                  %>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      <%= f.submit "Book now!" %>
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% end %>
+
+<%# Back to Listings Button %>
+<div class="mt-4">
+  <%= link_to "Back to Listings", root_path, class: "btn btn-secondary" %>
+</div>

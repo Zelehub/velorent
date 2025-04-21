@@ -14,8 +14,10 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to checkout_path(@order)
     else
-      redirect_to bikes_path(@bike), status: :unprocessable_entity
+      # flash[:notice] = "Please select a valid date"
+      render "bikes/show", status: :unprocessable_entity
     end
+    # raise
   end
 
   def set_pending
