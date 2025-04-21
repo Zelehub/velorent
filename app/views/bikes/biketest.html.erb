@@ -1,27 +1,47 @@
-<div class="bike-list">
-  <!-- iteration here -->
-  <% @bikes.each do |bike| %>
+<div class="bike-show-card" data-controller="price" data-price-price-value="<%= @bike.price %>">
+  <div class="bike-show-image">
+    <%= cl_image_tag @bike.photo.key %>
+  </div>
+  <div class="bike-show-info">
+    <div>
+      <h2><strong><%= @bike.brand %> <%= @bike.year %></strong></h2>
+      <p class="text-muted"><%= @bike.bike_type %> Bike</p>
+      <p class="text-muted"><%= @bike.color %></p>
+      <p class="text-muted"><strong>Owner:</strong> <%= @bike.user.email %></p>
+      <p class="text-muted"><strong>Price:</strong> <%= @bike.price %> per day</p>
+    </div>
+  </div>
+  <div class="date-bike-show-pick">
+    <%= simple_form_for [@bike, @order] do |f| %>
+      <div class="date-bike-input">
+        <div>
+          <%= f.input :rental_date,
+                      as: :string,
+                      input_html: { data: { controller: "datepicker",
+                                            price_target: "rentalStart",
+                                            action: "change->price#showPrice"}}
+          %>
+        </div>
+        <div>
+          <%= f.input :rental_date_end,
+                      as: :string,
+                      input_html: { data: { controller: "datepicker",
+                                            price_target: "rentalEnd",
+                                            action: "change->price#showPrice"}}
 
-    <%= link_to bike_path(bike), class: "bike-card-container" do %>
-
-
-      <div class="bike-image">
-        <%= cl_image_tag bike.photo.key %>
-      </div>
-      <div class="bike-header"><h3><%= bike.brand %></h3></div>
-      <div class="bike-details">
-        <div class="bike-details-box">
-          <div class="bike-details-info">
-            <p><%= bike.bike_type %> Bike</p>
-            <p>In <%= bike.area %></p>
-          </div>
-          <div class="bike-details-price">
-            <h3><strong><%= bike.price %> <i class="fa-solid fa-euro-sign" style="color: #FFD43B;"></i></strong></h3>
-          </div>
+          %>
         </div>
       </div>
+  </div>
+  <div class="bike-show-price">
+    <p data-price-target="display">price aqui</p>
+  </div>
+  <div class="date-bike-submit">
+    <%= button_tag "Book now!", type: "submit", class: "button-85", role: "button" %>
+  </div>
     <% end %>
+</div>
 
-
-  <% end %>
+<div class="mt-4">
+  <%= link_to "Back to Listings", root_path, class: "btn btn-secondary" %>
 </div>

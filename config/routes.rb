@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  
+
   # for testing
-  get "biketest", to: "bikes#biketest"
+  get "biketest/:id", to: "bikes#biketest"
   # finished testing
 
   root to: "bikes#index"
